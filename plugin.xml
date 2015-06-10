@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.adaltojunior.cordova.plugin.wazenavigator"
+        version="0.1.0">
+    <engines>
+        <engine name="cordova" version=">=3.7.0" />
+    </engines>
+
+    <name>Waze Navigator</name>
+    <description>Plugin to navigate using Waze.</description>
+    <author>Adalto Junior</author>
+    <repo>https://github.com/adaltojunior86/cordova-waze-navigator.git</repo>
+    <issue>https://github.com/adaltojunior86/cordova-waze-navigator/issues</issue>
+    <license>MIT</license>
+
+    <keywords>maps, navigation, navigator, waze, ios, android, wp8</keywords>
+    <platform name="wp8">
+        <js-module src="www/wp8/wazenavigator.js" name="wazenavigator">
+            <clobbers target="WazeNavigator"/>
+        </js-module>
+    </platform>
+</plugin>

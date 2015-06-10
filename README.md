@@ -1,2 +1,2 @@
 # cordova-waze-navigator
-Cordova plugin to navigation using Waze
+Cordova's plugin to navigation using Waze
