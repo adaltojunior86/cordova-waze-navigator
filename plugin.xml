@@ -4,7 +4,7 @@
         id="com.adaltojunior.cordova.plugin.wazenavigator"
         version="0.1.0">
     <engines>
-        <engine name="cordova" version=">=3.7.0" />
+        <engine name="cordova" version=">=3.5.2" />
     </engines>
 
     <name>Waze Navigator</name>
@@ -15,9 +15,24 @@
     <license>MIT</license>
 
     <keywords>maps, navigation, navigator, waze, ios, android, wp8</keywords>
+
     <platform name="wp8">
         <js-module src="www/wp8/wazenavigator.js" name="wazenavigator">
             <clobbers target="WazeNavigator"/>
         </js-module>
+    </platform>
+
+    <platform name="android">
+        <js-module src="www/android/wazenavigator.js" name="WazeNavigator">
+            <clobbers target="WazeNavigator" />
+        </js-module>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="WazeNavigator">
+                <param name="android-package" value="com.adaltojunior.cordova.plugin.WazeNavigator"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/WazeNavigator.java" target-dir="src/com/adaltojunior/cordova/plugin/" />
     </platform>
 </plugin>
