@@ -23,7 +23,7 @@
     </platform>
 
     <platform name="android">
-        <js-module src="www/android/wazenavigator.js" name="WazeNavigator">
+        <js-module src="www/wazenavigator.js" name="WazeNavigator">
             <clobbers target="WazeNavigator" />
         </js-module>
 
@@ -38,9 +38,14 @@
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="WazeNavigator">
-                <param name="ios-package" value="WazeNavigator" />
+                <param name="ios-package" value="CDVWazeNavigator"/>
             </feature>
         </config-file>
+        <js-module src="www/wazenavigator.js" name="WazeNavigator">
+            <clobbers target="WazeNavigator" />
+        </js-module>
+        <header-file src="src/ios/CDVWazeNavigator.h" />
+        <source-file src="src/ios/CDVWazeNavigator.m" />
     </platform>
 
 </plugin>

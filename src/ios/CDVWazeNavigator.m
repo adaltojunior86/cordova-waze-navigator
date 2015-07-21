@@ -6,10 +6,10 @@
 //
 //
 
-#import "waze-navigator.h"
 #import <Cordova/CDV.h>
+#import "CDVWazeNavigator.h"
 
-@implementation WazeNavigator
+@implementation CDVWazeNavigator
 
 - (void)execute:(CDVInvokedUrlCommand*)command
 {
