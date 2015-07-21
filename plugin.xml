@@ -35,4 +35,12 @@
 
         <source-file src="src/android/WazeNavigator.java" target-dir="src/com/adaltojunior/cordova/plugin/" />
     </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="WazeNavigator">
+                <param name="ios-package" value="WazeNavigator" />
+            </feature>
+        </config-file>
+    </platform>
+
 </plugin>
