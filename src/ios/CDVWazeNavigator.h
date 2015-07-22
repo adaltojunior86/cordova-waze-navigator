@@ -9,7 +9,7 @@
 
 @interface CDVWazeNavigator : CDVPlugin
     
- - (void)execute:(CDVInvokedUrlCommand*)command;
+ - (void)navigateByWaze:(CDVInvokedUrlCommand*)command;
 
 @end
 

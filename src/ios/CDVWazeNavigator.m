@@ -11,15 +11,15 @@
 
 @implementation CDVWazeNavigator
 
-- (void)execute:(CDVInvokedUrlCommand*)command
+- (void)navigateByWaze:(CDVInvokedUrlCommand *)command
 {
-    CDVPluginResult* pluginResult = nil;
-    NSString* latitude = [command.arguments objectAtIndex:0];
-    NSString* longitude = [command.arguments objectAtIndex:1];
-    
+    NSArray *latlng = command.arguments;
+    NSString *lat = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:0]];
+    NSString *lng = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:1]];
+
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"waze://"]]) {
 
-        NSString *urlStr = [NSString stringWithFormat:@"waze://?ll=%f,%f&navigate=yes", latitude, longitude];
+        NSString *urlStr = [NSString stringWithFormat:@"waze://?ll=%f,%f&navigate=yes", [lat doubleValue], [lng doubleValue]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
         
     } else {
