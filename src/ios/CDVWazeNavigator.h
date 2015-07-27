@@ -8,8 +8,9 @@
 #import <Cordova/CDV.h>
 
 @interface CDVWazeNavigator : CDVPlugin
-    
- - (void)navigateByWaze:(CDVInvokedUrlCommand*)command;
+
+- (void)openByUrl:(NSString *)url;
+- (void)navigateByWaze:(CDVInvokedUrlCommand*)command;
 
 @end
 

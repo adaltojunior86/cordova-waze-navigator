@@ -11,22 +11,23 @@
 
 @implementation CDVWazeNavigator
 
+- (void)openByUrl:(NSString *)url
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@url]];
+}
+
 - (void)navigateByWaze:(CDVInvokedUrlCommand *)command
 {
     NSArray *latlng = command.arguments;
     NSString *lat = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:0]];
     NSString *lng = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:1]];
-
+    
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"waze://"]]) {
-
-        NSString *urlStr = [NSString stringWithFormat:@"waze://?ll=%f,%f&navigate=yes", [lat doubleValue], [lng doubleValue]];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-        
+        [self openByUrl:[NSString stringWithFormat:@"waze://?ll=%f,%f&navigate=yes", [lat doubleValue], [lng doubleValue]]];
+    } else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"comgooglemaps://"]]) {
+        [self openByUrl:[NSString stringWithFormat:@"comgooglemaps://?saddr=%f&daddr=%f", [lat doubleValue], [lng doubleValue]]];
     } else {
-        
-        // Waze is not installed. Launch AppStore to install Waze app
-        [[UIApplication sharedApplication] openURL:[NSURL                                                  URLWithString:@"http://itunes.apple.com/us/app/id323229106"]];
-
+        [self openByUrl:@"http://itunes.apple.com/us/app/id323229106"];
     }
     
 }
