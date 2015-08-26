@@ -13,7 +13,7 @@
 
 - (void)openByUrl:(NSString *)url
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@url]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 - (void)navigateByWaze:(CDVInvokedUrlCommand *)command
@@ -24,9 +24,13 @@
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"waze://"]]) {
         [self openByUrl:[NSString stringWithFormat:@"waze://?ll=%f,%f&navigate=yes", [lat doubleValue], [lng doubleValue]]];
-    } else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"comgooglemaps://"]]) {
+    }
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"comgooglemaps://"]])
+    {
         [self openByUrl:[NSString stringWithFormat:@"comgooglemaps://?saddr=%f&daddr=%f", [lat doubleValue], [lng doubleValue]]];
-    } else {
+    }
+    else
+    {
         [self openByUrl:@"http://itunes.apple.com/us/app/id323229106"];
     }
     
