@@ -16,7 +16,7 @@ public class WazeNavigator extends CordovaPlugin {
 
     private void openWithWaze(String latitude, String longitude) {
 
-        String url = "waze://?ll=" + lat + "," + lng + "&navigate=yes";
+        String url = "waze://?ll=" + latitude + "," + longitude + "&navigate=yes";
         Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
         this.cordova.getActivity().startActivity(intent);
 
