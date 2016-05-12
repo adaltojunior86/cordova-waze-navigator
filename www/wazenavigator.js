@@ -2,10 +2,11 @@
  * Created by adaltojunior on 6/11/15.
  */
 WazeNavigator = {
-    navigateByPosition: function (position) {
+    navigateByPosition: function (from, to) {
 
         try{
-            if (!isNaN(position.lat) && !isNaN(position.lng)) {
+            if ((!isNaN(from.lat) && !isNaN(from.lng)) &&
+                (!isNaN(to.lat) && !isNaN(to.lng))) {
                 cordova.exec(
                     function () {
                         console.log('Good navigation!!!');
@@ -15,7 +16,7 @@ WazeNavigator = {
                     },
                     'WazeNavigator',
                     'navigateByWaze',
-                    [position.lat, position.lng]);
+                    [from.lat, from.lng, to.lat, to.lng]);
             } else {
                 console.log("Latitude and longitude aren't numbers.");
             }
