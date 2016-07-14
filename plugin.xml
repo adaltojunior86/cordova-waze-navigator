@@ -41,6 +41,12 @@
                 <param name="ios-package" value="CDVWazeNavigator"/>
             </feature>
         </config-file>
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+        <array>
+            <string>waze</string>
+            <string>comgooglemaps</string>
+        </array>
+    </config-file>
         <js-module src="www/wazenavigator.js" name="WazeNavigator">
             <clobbers target="WazeNavigator" />
         </js-module>
