@@ -1,0 +1,42 @@
+{
+  "name": "com.adaltojunior.cordova.plugin.wazenavigator",
+  "version": "0.1.0",
+  "description": "Plugin to navigate using Waze.",
+  "cordova": {
+    "id": "com.adaltojunior.cordova.plugin.wazenavigator",
+    "platforms": [
+      "wp8",
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renanbandeira/cordova-waze-navigator.git"
+  },
+  "keywords": [
+    "maps",
+    "navigation",
+    "navigator",
+    "waze",
+    "ios",
+    "android",
+    "wp8",
+    "ecosystem:cordova",
+    "cordova-wp8",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.5.2"
+    }
+  ],
+  "author": "Adalto Junior",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/renanbandeira/cordova-waze-navigator/issues"
+  },
+  "homepage": "https://github.com/renanbandeira/cordova-waze-navigator#readme"
+}
