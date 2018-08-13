@@ -1,6 +1,5 @@
 package com.adaltojunior.cordova.plugin;
 
-
 import org.apache.cordova.CordovaPlugin;
 import android.content.ActivityNotFoundException;
 import org.apache.cordova.CallbackContext;
@@ -15,7 +14,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import java.lang.String;
-
 
 public class WazeNavigator extends CordovaPlugin {
 
@@ -54,14 +52,50 @@ public class WazeNavigator extends CordovaPlugin {
 
         String url = "market://details?id=com.waze";
 
-        if (verifyAplicationIsInstalled("com.waze")) {
-            url = "waze://?ll=" + toLat + "," + toLng + "&navigate=yes";
-        } else if (verifyAplicationIsInstalled("com.google.android.apps.maps")) {
-            String fromPosition = fromLat + "," + fromLng;
-            String toPosition = toLat + "," + toLng;
+        builder = new AlertDialog.Builder(context);
+        builder.setTitle(null);
+        builder.setIcon(R.drawable.icon);
+        builder.setMessage(null);
+        builder.setNeutralButton("Waze",
+        new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                if (verifyAplicationIsInstalled("com.waze")) {
+                    url = "waze://?ll=" + toLat + "," + toLng + "&navigate=yes";
+                    return url;
+                } else {
+                    //OPEN GOOGLE PLAY FOR WAZE
+                }
+            }
+        });
 
-            url = "http://maps.google.com/maps?saddr=" + fromPosition + "&daddr=" + toPosition;
-        }
+        builder.setNeutralButton("Google Maps",
+        new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                if (verifyAplicationIsInstalled("com.google.android.apps.maps")) {
+                    String fromPosition = fromLat + "," + fromLng;
+                    String toPosition = toLat + "," + toLng;
+
+                    url = "http://maps.google.com/maps?saddr=" + fromPosition + "&daddr=" + toPosition;
+                    return url;
+                } else {
+                    //OPEN GOOGLE PLAY FOR GOOGLE
+                }
+            }
+        });
+
+        builder.setNegativeButton("OK",
+        new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
 
         return url;
     }
