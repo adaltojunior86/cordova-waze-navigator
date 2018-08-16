@@ -64,7 +64,7 @@ public class WazeNavigator extends CordovaPlugin {
             Intent chooserIntent = Intent.createChooser(intentGoogleNav, null);
             Intent[] arr = {intentWaze};
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arr);
-            cordova.getContext().startActivity(chooserIntent);
+            cordova.getActivity().startActivity(chooserIntent);
         } else {
             openIntent( "market://details?id=com.waze");
         }
