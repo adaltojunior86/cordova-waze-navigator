@@ -2,8 +2,9 @@ package com.adaltojunior.cordova.plugin;
 
 
 import org.apache.cordova.CordovaPlugin;
-import android.content.ActivityNotFoundException;
+
 import org.apache.cordova.CallbackContext;
+
 import android.content.Intent;
 
 import org.apache.cordova.LOG;
@@ -30,16 +31,12 @@ public class WazeNavigator extends CordovaPlugin {
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
         if (action.equals("navigateByWaze")) {
-            String fromLat = data.getString(0);
-            String fromLng = data.getString(1);
+//            String fromLat = data.getString(0);
+//            String fromLng = data.getString(1);
             String toLat = data.getString(2);
             String toLng = data.getString(3);
 
-            try {
-                openIntent(getUrlIntentByApplication(fromLat, fromLng, toLat, toLng));
-            } catch (ActivityNotFoundException ex){
-                LOG.e(CLASS_NAME, ex.getMessage());
-            }
+            openUrlIntentByApplication(toLat, toLng);
 
             return true;
 
@@ -50,30 +47,37 @@ public class WazeNavigator extends CordovaPlugin {
         }
     }
 
-    private String getUrlIntentByApplication(String fromLat, String fromLng, String toLat, String toLng) {
+    private void openUrlIntentByApplication(String toLat, String toLng) {
 
-        String url = "market://details?id=com.waze";
+        String wazePackage = "com.waze";
+        String mapsPackage = "com.google.android.apps.maps";
 
-        if (verifyAplicationIsInstalled("com.waze")) {
-            url = "waze://?ll=" + toLat + "," + toLng + "&navigate=yes";
-        } else if (verifyAplicationIsInstalled("com.google.android.apps.maps")) {
-            String fromPosition = fromLat + "," + fromLng;
-            String toPosition = toLat + "," + toLng;
+        if (verifyAplicationIsInstalled(wazePackage) || verifyAplicationIsInstalled(mapsPackage)) {
+            String url = "waze://?ll=" + toLat + ", " + toLng + "&navigate=yes";
+            Intent intentWaze = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intentWaze.setPackage("com.waze");
 
-            url = "http://maps.google.com/maps?saddr=" + fromPosition + "&daddr=" + toPosition;
+            String uriGoogle = "google.navigation:q=" + toLat + "," + toLng;
+            Intent intentGoogleNav = new Intent(Intent.ACTION_VIEW, Uri.parse(uriGoogle));
+            intentGoogleNav.setPackage("com.google.android.apps.maps");
+
+            Intent chooserIntent = Intent.createChooser(intentGoogleNav, null);
+            Intent[] arr = {intentWaze};
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arr);
+            cordova.getContext().startActivity(chooserIntent);
+        } else {
+            openIntent( "market://details?id=com.waze");
         }
-
-        return url;
     }
 
-    private Boolean verifyAplicationIsInstalled(String wazepackage) {
+    private Boolean verifyAplicationIsInstalled(String stringPackage) {
 
         try {
 
             PackageManager application = this.cordova.getActivity().getPackageManager();
-            PackageInfo info = application.getPackageInfo(wazepackage, PackageManager.GET_ACTIVITIES);
+            PackageInfo info = application.getPackageInfo(stringPackage, PackageManager.GET_ACTIVITIES);
 
-            return info.packageName.equals(wazepackage);
+            return info.packageName.equals(stringPackage);
 
         } catch (PackageManager.NameNotFoundException e) {
             LOG.e(CLASS_NAME, e.getMessage());
