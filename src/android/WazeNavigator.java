@@ -26,7 +26,6 @@ public class WazeNavigator extends CordovaPlugin {
         if (action.equals("navigateByWaze")) {
             String toLat = data.getString(2);
             String toLng = data.getString(3);
-            String label = data.getString(4);
 
             openUrlIntentByApplication(toLat, toLng);
 
