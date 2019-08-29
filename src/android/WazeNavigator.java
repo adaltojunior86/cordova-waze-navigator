@@ -26,6 +26,7 @@ public class WazeNavigator extends CordovaPlugin {
         if (action.equals("navigateByWaze")) {
             String toLat = data.getString(2);
             String toLng = data.getString(3);
+            String label = data.getString(4);
 
             openUrlIntentByApplication(toLat, toLng);
 
@@ -38,10 +39,9 @@ public class WazeNavigator extends CordovaPlugin {
         }
     }
 
-    private void openUrlIntentByApplication(String toLat, String toLng) {
-
+    private void openUrlIntentByApplication(String myLatitude, String myLongitude) {
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse("geo:"+toLat+","+toLng));
+                Uri.parse("geo:<" + myLatitude  + ">,<" + myLongitude + ">?q=<" + myLatitude  + ">,<" + myLongitude + ">(" + myLatitude + "," + myLongitude + ")"));
         this.cordova.getActivity().startActivity(intent);
 
     }
