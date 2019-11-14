@@ -26,10 +26,21 @@
     NSString *toLat = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:2]];
     NSString *toLng = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:3]];
     
-    UIAlertController * alert = [UIAlertController
-                                 alertControllerWithTitle:nil
-                                 message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    UIAlertController * alert;
+    
+    if ( [(NSString*)[UIDevice currentDevice].model hasPrefix:@"iPad"] ) {
+        alert = [UIAlertController
+                                        alertControllerWithTitle:nil
+                                        message:nil
+                                        preferredStyle:UIAlertControllerStyleAlert];
+    } else {
+        alert = [UIAlertController
+            alertControllerWithTitle:nil
+            message:nil
+            preferredStyle:UIAlertControllerStyleActionSheet];
+    }
     
     UIAlertAction* waze = [UIAlertAction
                            actionWithTitle:@"Waze"
@@ -65,7 +76,9 @@
     [alert addAction:googleMaps];
     [alert addAction:cancel];
     
+    
     [self.viewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end
+
