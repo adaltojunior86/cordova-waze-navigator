@@ -20,16 +20,16 @@
 }
 
 - (void)showAlert:(NSArray*) latlng {
-    
+
     NSString *fromLat = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:0]];
     NSString *fromLng = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:1]];
     NSString *toLat = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:2]];
     NSString *toLng = [NSString stringWithFormat:@"%@",[latlng objectAtIndex:3]];
-    
-    
-    
+
+
+
     UIAlertController * alert;
-    
+
     if ( [(NSString*)[UIDevice currentDevice].model hasPrefix:@"iPad"] ) {
         alert = [UIAlertController
                                         alertControllerWithTitle:nil
@@ -41,7 +41,7 @@
             message:nil
             preferredStyle:UIAlertControllerStyleActionSheet];
     }
-    
+
     UIAlertAction* waze = [UIAlertAction
                            actionWithTitle:@"Waze"
                            style:UIAlertActionStyleDefault
@@ -52,7 +52,16 @@
                                    [self openByUrl:@"http://itunes.apple.com/us/app/id323229106"];
                                }
                            }];
-    
+
+   UIAlertAction* nav = [UIAlertAction
+                          actionWithTitle:@"GM Nav"
+                          style:UIAlertActionStyleDefault
+                          handler:^(UIAlertAction * action) {
+                              if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"gmnav://"]]) {
+                                  [self openByUrl:[NSString stringWithFormat:@"gmnav://?ll=%f,%f", [toLat doubleValue], [toLng doubleValue]]];
+                              }
+                          }];
+
     UIAlertAction* googleMaps = [UIAlertAction
                                  actionWithTitle:@"Google Maps"
                                  style:UIAlertActionStyleDefault
@@ -64,21 +73,22 @@
                                          [self openByUrl:@"https://itunes.apple.com/us/app/google-maps-transit-food/id585027354?mt=8"];
                                      }
                                  }];
-    
+
     UIAlertAction* cancel = [UIAlertAction
                              actionWithTitle:@"OK"
                              style:UIAlertActionStyleCancel
                              handler:^(UIAlertAction * action) {
                                  [alert dismissViewControllerAnimated:true completion:nil];
                              }];
-    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"gmnav://"]]) {
+      [alert addAction:nav];
+    }
     [alert addAction:waze];
     [alert addAction:googleMaps];
     [alert addAction:cancel];
-    
-    
+
+
     [self.viewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end
-
