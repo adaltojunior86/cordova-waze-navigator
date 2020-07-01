@@ -59,6 +59,8 @@
                           handler:^(UIAlertAction * action) {
                               if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"gmnav://"]]) {
                                   [self openByUrl:[NSString stringWithFormat:@"gmnav://?ll=%f,%f", [toLat doubleValue], [toLng doubleValue]]];
+                              } else {
+                                   [self openByUrl:@"http://itunes.apple.com/us/app/id1514784576"];
                               }
                           }];
 
@@ -80,9 +82,7 @@
                              handler:^(UIAlertAction * action) {
                                  [alert dismissViewControllerAnimated:true completion:nil];
                              }];
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"gmnav://"]]) {
-      [alert addAction:nav];
-    }
+    [alert addAction:nav];
     [alert addAction:waze];
     [alert addAction:googleMaps];
     [alert addAction:cancel];
